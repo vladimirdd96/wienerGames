@@ -5,6 +5,10 @@ export const errorMessages = {
   invalidBetCount: 'Invalid count or bet amount',
   invalidDepositAmount: 'Invalid deposit amount',
   invalidWithdrawAmount: 'Invalid withdrawal amount',
+  notEnoughFunds: 'Not enough money in your balance',
+  failedToFetchRtp: 'Failed to fetch RTP',
+  failedToFetchBalance: 'Failed to fetch balance',
+  failedToDepositFunds: 'Failed to deposit funds',
 };
 
 export enum HttpStatusCode {

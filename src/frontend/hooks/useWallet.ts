@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { clientBaseUrl, urls } from '../../constants';
+import { errorMessages } from '../../utils/constants';
 
 interface WalletBalance {
   balance: number;
@@ -14,7 +15,7 @@ export const useWallet = () => {
       const response = await fetch(clientBaseUrl + urls.wallet.balance);
 
       if (!response.ok) {
-        throw new Error('Failed to fetch balance');
+        throw new Error(errorMessages.failedToFetchBalance);
       }
 
       const data: WalletBalance = await response.json();
@@ -23,7 +24,7 @@ export const useWallet = () => {
       if (err instanceof Error) {
         setWalletError(err.message);
       } else {
-        setWalletError('An unknown error occurred');
+        setWalletError(errorMessages.default);
       }
     }
   };
@@ -41,7 +42,7 @@ export const useWallet = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to deposit funds');
+        throw new Error(errorMessages.failedToDepositFunds);
       }
 
       await fetchBalance();
@@ -49,7 +50,7 @@ export const useWallet = () => {
       if (err instanceof Error) {
         setWalletError(err.message);
       } else {
-        setWalletError('An unknown error occurred');
+        setWalletError(errorMessages.default);
       }
     }
   };

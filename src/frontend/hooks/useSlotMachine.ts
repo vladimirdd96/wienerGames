@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { clientBaseUrl, urls } from '../../constants';
 import { PlayResponse, SimulateResponse } from '../../models/types';
+import { errorMessages } from '../../utils/constants';
 
 export interface useSlotReturn {
   matrix: string[][];
@@ -43,7 +44,7 @@ export const useSlotMachine = (bet: number, count: number) => {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unknown error occurred');
+        setError(errorMessages.default);
       }
     }
   }, [bet]);
@@ -78,7 +79,7 @@ export const useSlotMachine = (bet: number, count: number) => {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unknown error occurred');
+        setError(errorMessages.default);
       }
     }
   }, [count]);

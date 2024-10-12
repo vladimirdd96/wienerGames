@@ -10,6 +10,7 @@ import { clientBaseUrl, urls } from '../../constants';
 import DepositSection from './DepositSection/DepositSection';
 import SlotMachine from './SlotMachine/SlotMachine';
 import StatisticSection from './StatisticSection/StatisticSection';
+import { errorMessages } from '../../utils/constants';
 
 interface RTPResponse {
   rtp: number;
@@ -37,7 +38,7 @@ const ContainerComponent: React.FC = () => {
     try {
       const response = await fetch(clientBaseUrl + urls.slot.rtp);
       if (!response.ok) {
-        throw new Error('Failed to fetch RTP');
+        throw new Error(errorMessages.failedToFetchRtp);
       }
 
       const data: RTPResponse = await response.json();
@@ -46,7 +47,7 @@ const ContainerComponent: React.FC = () => {
       if (error instanceof Error) {
         setRtpError(error.message);
       } else {
-        setRtpError('An unknown error occurred');
+        setRtpError(errorMessages.default);
       }
     }
   }, []);

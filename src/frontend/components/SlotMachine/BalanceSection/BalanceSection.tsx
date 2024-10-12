@@ -2,6 +2,7 @@ import React from 'react';
 import ErrorMessagesSection from '../../Error/ErrorSection';
 import TextComponent from '../../Text/Text';
 import BalanceDisplay from './BalanceDisplay';
+import { errorMessages } from '../../../../utils/constants';
 
 interface BalanceSectionProps {
   balance: number;
@@ -31,7 +32,7 @@ const BalanceSection: React.FC<BalanceSectionProps> = ({
         slotMachineError={slotMachineError}
         rtpError={rtpError}
         walletError={walletError}
-        balanceError={balance < betAmount ? 'Not enough money in your balance' : null}
+        balanceError={balance < betAmount ? errorMessages.notEnoughFunds : null}
       />
     </>
   );
