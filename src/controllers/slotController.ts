@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { slotService } from '../services/slotService';
 import { walletService } from '../services/walletService';
-import {
-  createValidationError,
-  createInsufficientBalanceError,
-  createUnexpectedError,
-} from '../middlewares/errorHandler';
+import { createValidationError, createInsufficientBalanceError } from '../middlewares/errorHandler';
 import { Bet, PlayResponse, SimulateResponse } from '../models/types';
 import { errorMessages } from '../utils/constants';
 
@@ -72,11 +68,6 @@ const simulate = (req: Request, res: Response, next: NextFunction): void => {
 // GET /rtp
 const getRTP = (_: Request, res: Response, next: NextFunction): void => {
   const rtp = slotService.calculateRTP();
-
-  if (!rtp) {
-    return next(createUnexpectedError());
-  }
-
   res.status(200).json({ rtp });
 };
 

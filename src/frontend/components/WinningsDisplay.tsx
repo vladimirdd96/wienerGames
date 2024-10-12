@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface WinningsDisplayProps {
-  winnings: number;
+  text: string;
 }
 
-const WinningsDisplay: React.FC<WinningsDisplayProps> = ({ winnings }) => {
-  return <WinningsContainer>Winnings: ${winnings}</WinningsContainer>;
+const WinningsComponent: React.FC<WinningsDisplayProps> = ({ text }) => {
+  return <WinningsContainer>{text}</WinningsContainer>;
 };
 
-export default WinningsDisplay;
+export default WinningsComponent;
 
 const WinningsContainer = styled.div`
   font-size: 1.2em;

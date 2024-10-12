@@ -39,7 +39,8 @@ const calculateWinnings = (matrix: SlotMatrix, bet: number): number => {
 };
 
 const calculateRTP = (): number => {
-  return serviceState.totalBets === 0 ? 0 : (serviceState.totalWinnings / serviceState.totalBets) * 100;
+  if (!serviceState.totalWinnings || !serviceState.totalBets) return 0;
+  return (serviceState.totalWinnings / serviceState.totalBets) * 100;
 };
 
 const trackBets = (bet: number): void => {

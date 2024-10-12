@@ -46,7 +46,6 @@ export const useSlotMachine = (bet: number) => {
       setTotalWinningsToday(prev => prev + data.winnings);
     } catch (err) {
       if (err instanceof Error) {
-        console.log({ err });
         setError(err.message);
       } else {
         setError('An unknown error occurred');

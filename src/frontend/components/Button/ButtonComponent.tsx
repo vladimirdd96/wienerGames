@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styled from 'styled-components';
 
 interface PlayButtonProps {
   onClick: () => void;
   disabled: boolean;
-  bet: number;
+  text: string;
+  style?: CSSProperties;
 }
-
-const PlayButton: React.FC<PlayButtonProps> = ({ onClick, disabled, bet }) => {
-  return <Button onClick={disabled ? undefined : onClick}>{`ROLL (Bet: ${bet})`}</Button>;
+const ButtonComponent: React.FC<PlayButtonProps> = ({ onClick, disabled, text, style: style }) => {
+  return (
+    <Button onClick={disabled ? undefined : onClick} style={style}>
+      {text}
+    </Button>
+  );
 };
 
-export default PlayButton;
+export default ButtonComponent;
 
 const Button = styled.div`
   background-color: #ff0000;

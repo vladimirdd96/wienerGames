@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import ButtonComponent from '../Button/ButtonComponent';
+import ErrorMessage from '../Error/ErrorMessage';
+import InputComponent from '../Input/InputComponent';
+import SectionComponent from '../Section/Section';
 
 interface DepositFormProps {
   onDeposit: (amount: number) => void;
@@ -24,12 +28,12 @@ const DepositForm: React.FC<DepositFormProps> = ({ onDeposit, error }) => {
   };
 
   return (
-    <DepositContainer>
+    <SectionComponent>
       <h3>Deposit Funds</h3>
-      <Input type='number' value={amount} onChange={handleInputChange} placeholder='Enter amount' />
-      <Button onClick={handleSubmit}>Deposit</Button>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-    </DepositContainer>
+      <InputComponent value={amount} onChange={handleInputChange} placeholder='Enter amount' />
+      <ButtonComponent onClick={handleSubmit} text={'Deposit'} disabled={false} style={{ width: '40%' }} />
+      {error && <ErrorMessage text={error} />}
+    </SectionComponent>
   );
 };
 
@@ -38,6 +42,7 @@ export default DepositForm;
 const DepositContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: white;
   align-items: center;
   margin: 20px 0;
 `;
@@ -50,23 +55,4 @@ const Input = styled.input`
   border-radius: 5px;
   width: 100px;
   text-align: center;
-`;
-
-const Button = styled.button`
-  background-color: #007bff;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1.2em;
-  cursor: pointer;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const ErrorMessage = styled.div`
-  color: red;
-  margin: 10px 0;
 `;
