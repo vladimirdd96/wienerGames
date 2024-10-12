@@ -1,3 +1,10 @@
+```
+yarn start  -> starts the server
+```
+```
+yarn dev  -> starts the client
+```
+
 # Node.js Developer Task
 MAIN TASK:
 Objective: Create an API for simulating a slot casino game with three endpoints.
