@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { clientBaseUrl, urls } from '../../constants';
 
 interface WalletBalance {
   balance: number;
@@ -10,10 +11,12 @@ export const useWallet = () => {
 
   const fetchBalance = async () => {
     try {
-      const response = await fetch('http://localhost:3000/wallet/balance');
+      const response = await fetch(clientBaseUrl + urls.wallet.balance);
+
       if (!response.ok) {
         throw new Error('Failed to fetch balance');
       }
+
       const data: WalletBalance = await response.json();
       setBalance(data.balance);
     } catch (err) {
@@ -29,7 +32,7 @@ export const useWallet = () => {
     try {
       setWalletError(null);
 
-      const response = await fetch('http://localhost:3000/wallet/deposit', {
+      const response = await fetch(clientBaseUrl + urls.wallet.deposit, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

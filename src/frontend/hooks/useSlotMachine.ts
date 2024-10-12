@@ -37,14 +37,13 @@ export const useSlotMachine = (bet: number) => {
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData);
-        console.log({ errorData });
         throw new Error(errorData.error.message);
       }
 
       const data: SlotMatrix = await response.json();
       setMatrix(data.matrix);
       setWinnings(data.winnings);
-      setTotalWinningsToday(prev => prev + data.winnings); // Track total winnings for today
+      setTotalWinningsToday(prev => prev + data.winnings);
     } catch (err) {
       if (err instanceof Error) {
         console.log({ err });
