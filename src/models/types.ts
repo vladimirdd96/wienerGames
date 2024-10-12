@@ -8,6 +8,7 @@ export interface PlayResponse {
 }
 
 export interface SimulateResponse {
+  matrix: SlotMatrix;
   totalWinnings: number;
   netResult: number;
   rtp: number;

@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 export interface SectionComponentProps {
-  children: React.ReactNode; // Accept any JSX elements dynamically
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-const SectionComponent: React.FC<SectionComponentProps> = ({ children }) => {
-  return <Section>{children}</Section>;
+const SectionComponent: React.FC<SectionComponentProps> = ({ children, style }) => {
+  return <Section style={style}>{children}</Section>;
 };
 
 export default SectionComponent;

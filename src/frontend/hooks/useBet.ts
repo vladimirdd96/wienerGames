@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 export const useBet = (initialBet: number = 10) => {
-  const [bet, setBet] = useState<number>(initialBet);
+  const [betAmount, setBet] = useState<number>(initialBet);
+  const [rollCount, setRollCount] = useState(0);
 
   const handleBetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newBet = parseFloat(e.target.value);
@@ -10,5 +11,12 @@ export const useBet = (initialBet: number = 10) => {
     }
   };
 
-  return { bet, handleBetChange };
+  const handleRollCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newRollCount = parseFloat(e.target.value);
+    if (!isNaN(newRollCount) && newRollCount > 0) {
+      setRollCount(newRollCount);
+    }
+  };
+
+  return { betAmount, handleBetChange, rollCount, handleRollCountChange };
 };

@@ -4,14 +4,25 @@ export const useRolling = (
   play: () => Promise<void>,
   fetchBalance: () => Promise<void>,
   fetchRTP: () => Promise<void>,
+  simulate: () => Promise<void>,
+  count: number,
 ) => {
-  const [rolling, setRolling] = useState<boolean>(false);
+  const [singleRolling, setSingleRolling] = useState<boolean>(false);
+  const [simulateRolling, setSimulateRolling] = useState<boolean>(false);
+  const singleRollRollingTime = 700;
 
-  const handleClick = async () => {
-    setRolling(true);
+  const handleRollClick = async () => {
+    setSingleRolling(true);
     setTimeout(() => {
-      setRolling(false);
-    }, 700);
+      setSingleRolling(false);
+    }, singleRollRollingTime);
+  };
+
+  const handleSimulateClick = async () => {
+    setSimulateRolling(true);
+    setTimeout(() => {
+      setSimulateRolling(false);
+    }, singleRollRollingTime * count);
   };
 
   const handlePlay = async () => {
@@ -20,11 +31,23 @@ export const useRolling = (
     await fetchRTP();
   };
 
+  const handleSimulate = async () => {
+    await simulate();
+    await fetchBalance();
+    await fetchRTP();
+  };
+
   useEffect(() => {
-    if (rolling) {
+    if (singleRolling) {
       handlePlay();
     }
-  }, [rolling]);
+  }, [singleRolling]);
 
-  return { rolling, handleClick };
+  useEffect(() => {
+    if (simulateRolling) {
+      handleSimulate();
+    }
+  }, [simulateRolling]);
+
+  return { singleRolling, handleRollClick, simulateRolling, handleSimulateClick };
 };

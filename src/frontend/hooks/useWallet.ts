@@ -6,7 +6,7 @@ interface WalletBalance {
 }
 
 export const useWallet = () => {
-  const [balance, setBalance] = useState<number>(0);
+  const [balance, setBalance] = useState<number>(100);
   const [walletError, setWalletError] = useState<string | null>(null);
 
   const fetchBalance = async () => {
@@ -53,6 +53,10 @@ export const useWallet = () => {
       }
     }
   };
+
+  useEffect(() => {
+    console.log({ balance });
+  }, [balance]);
 
   useEffect(() => {
     fetchBalance();

@@ -1,11 +1,6 @@
 import { useState, useCallback } from 'react';
 import { clientBaseUrl, urls } from '../../constants';
-
-interface SlotMatrix {
-  matrix: string[][];
-  winnings: number;
-  rtp: number;
-}
+import { PlayResponse, SimulateResponse } from '../../models/types';
 
 export interface useSlotReturn {
   matrix: string[][];
@@ -16,7 +11,7 @@ export interface useSlotReturn {
   rtp: number;
 }
 
-export const useSlotMachine = (bet: number) => {
+export const useSlotMachine = (bet: number, count: number) => {
   const [matrix, setMatrix] = useState<string[][]>([]);
   const [winnings, setWinnings] = useState<number>(0);
   const [totalWinningsToday, setTotalWinningsToday] = useState<number>(0);
@@ -40,7 +35,7 @@ export const useSlotMachine = (bet: number) => {
         throw new Error(errorData.error.message);
       }
 
-      const data: SlotMatrix = await response.json();
+      const data: PlayResponse = await response.json();
       setMatrix(data.matrix);
       setWinnings(data.winnings);
       setTotalWinningsToday(prev => prev + data.winnings);
@@ -53,5 +48,40 @@ export const useSlotMachine = (bet: number) => {
     }
   }, [bet]);
 
-  return { matrix, winnings, totalWinningsToday, error, play };
+  const simulate = useCallback(async () => {
+    if (count === 0) {
+      return;
+    }
+
+    try {
+      setError(null);
+
+      const response = await fetch(clientBaseUrl + urls.slot.simulate, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bet, count }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData);
+        throw new Error(errorData.error.message);
+      }
+
+      const data: SimulateResponse = await response.json();
+      setMatrix(data.matrix);
+      setWinnings(data.totalWinnings);
+      setTotalWinningsToday(prev => prev + data.totalWinnings);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+    }
+  }, [count]);
+
+  return { matrix, winnings, totalWinningsToday, error, play, simulate };
 };

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { slotService } from '../services/slotService';
 import { walletService } from '../services/walletService';
 import { createValidationError, createInsufficientBalanceError } from '../middlewares/errorHandler';
-import { Bet, PlayResponse, SimulateResponse } from '../models/types';
+import { Bet, PlayResponse, SimulateResponse, SlotMatrix } from '../models/types';
 import { errorMessages } from '../utils/constants';
 
 // POST /play
@@ -46,21 +46,24 @@ const simulate = (req: Request, res: Response, next: NextFunction): void => {
   walletService.subtractBet(totalBet);
 
   let totalWinnings = 0;
+  let slotMatrix: SlotMatrix = [];
 
-  Array(count).forEach(() => {
-    const resultMatrix = slotService.spin();
-    const winnings = slotService.calculateWinnings(resultMatrix, bet);
-    totalWinnings += winnings;
+  Array(count)
+    .fill(0)
+    .forEach(() => {
+      slotMatrix = slotService.spin();
+      const winnings = slotService.calculateWinnings(slotMatrix, bet);
+      totalWinnings += winnings;
 
-    slotService.trackBets(bet);
-  });
+      slotService.trackBets(bet);
+    });
 
   walletService.addWinnings(totalWinnings);
 
   const rtp = slotService.calculateRTP();
 
   const netResult = totalWinnings - totalBet;
-  const response: SimulateResponse = { totalWinnings, netResult, rtp };
+  const response: SimulateResponse = { matrix: slotMatrix, totalWinnings, netResult, rtp };
 
   res.status(200).json(response);
 };

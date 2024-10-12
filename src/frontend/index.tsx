@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SlotMachine from './components/SlotMachine';
+import App from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SlotMachine />
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );
