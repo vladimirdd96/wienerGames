@@ -55,10 +55,6 @@ export const useWallet = () => {
   };
 
   useEffect(() => {
-    console.log({ balance });
-  }, [balance]);
-
-  useEffect(() => {
     fetchBalance();
   }, []);
 

@@ -1,17 +1,13 @@
 import React from 'react';
-import BalanceDisplay from '../BalanceDisplay/BalanceDisplay';
-import ButtonComponent from '../Button/ButtonComponent';
-import ErrorMessagesSection from '../Error/ErrorSection';
-import InputComponent from '../Input/InputComponent';
-import SectionComponent from '../Section/Section';
-import TextComponent from '../Text/Text';
 import ReelGridComponent from './ReelGrid';
+import BalanceSection from './BalanceSection/BalanceSection';
+import RollSection from './RollSection';
 
 interface SlotMachineProps {
   symbolsMatrix: string[][];
   rolling: boolean;
   winnings: number;
-  totalWinningsToday: number;
+  totalWiningsToday: number;
   slotMachineError: string | null;
   rtpError: string | null;
   walletError: string | null;
@@ -28,7 +24,7 @@ const SlotMachine: React.FC<SlotMachineProps> = ({
   symbolsMatrix,
   rolling,
   winnings,
-  totalWinningsToday,
+  totalWiningsToday,
   slotMachineError,
   rtpError,
   walletError,
@@ -43,35 +39,24 @@ const SlotMachine: React.FC<SlotMachineProps> = ({
   return (
     <>
       <ReelGridComponent symbolsMatrix={symbolsMatrix} rolling={rolling} />
-      <BalanceDisplay balance={balance} />
-      <TextComponent text={`Winnings: ${winnings}`} style={{ color: '#28a745' }} />
-      <TextComponent text={`Total Won Today: ${totalWinningsToday}`} style={{ color: '#28a745' }} />
-      <ErrorMessagesSection
+      <BalanceSection
+        balance={balance}
+        winnings={winnings}
+        totalWiningsToday={totalWiningsToday}
         slotMachineError={slotMachineError}
         rtpError={rtpError}
         walletError={walletError}
-        balanceError={balance < betAmount ? 'Not enough money in your balance' : null}
+        betAmount={betAmount}
       />
-      <SectionComponent style={{ boxShadow: 'none', flexDirection: 'row', justifyContent: 'center' }}>
-        <SectionComponent style={{ boxShadow: 'none', flexDirection: 'column', alignItems: 'center' }}>
-          <TextComponent text='Bet Amount' />
-          <InputComponent value={betAmount} onChange={handleBetChange} placeholder={'Enter your bet'} />
-          <ButtonComponent
-            onClick={handleRollClick}
-            disabled={balance < betAmount}
-            text={`ROLL (Bet: $${betAmount})`}
-          />
-        </SectionComponent>
-        <SectionComponent style={{ boxShadow: 'none', flexDirection: 'column', alignItems: 'center' }}>
-          <TextComponent text='Roll Count' />
-          <InputComponent value={rollCount} onChange={handleRollCountChange} placeholder={'Enter your bet'} />
-          <ButtonComponent
-            onClick={handleSimulateClick}
-            disabled={rollCount === 0 || balance < betAmount}
-            text={`SIMULATE (Count: ${rollCount})`}
-          />
-        </SectionComponent>
-      </SectionComponent>
+      <RollSection
+        betAmount={betAmount}
+        handleBetChange={handleBetChange}
+        handleRollClick={handleRollClick}
+        balance={balance}
+        rollCount={rollCount}
+        handleRollCountChange={handleRollCountChange}
+        handleSimulateClick={handleSimulateClick}
+      />
     </>
   );
 };

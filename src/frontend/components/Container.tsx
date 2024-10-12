@@ -93,7 +93,7 @@ const ContainerComponent: React.FC = () => {
           symbolsMatrix={symbolsMatrix}
           rolling={singleRolling || simulateRolling}
           winnings={winnings}
-          totalWinningsToday={totalWinningsToday}
+          totalWiningsToday={totalWinningsToday}
           slotMachineError={slotMachineError}
           rtpError={rtpError}
           walletError={walletError}
