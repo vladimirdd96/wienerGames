@@ -1,5 +1,6 @@
+starts the whole project (client + server) with a single command
 ```
-yarn start  -> starts the whole project (client + server)
+yarn start
 ```
 
 # Node.js Developer Task
