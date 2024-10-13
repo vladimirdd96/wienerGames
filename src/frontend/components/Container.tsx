@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import SectionComponent from './Section/Section';
 import { useWallet } from '../hooks/useWallet';

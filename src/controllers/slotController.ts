@@ -69,7 +69,7 @@ const simulate = (req: Request, res: Response, next: NextFunction): void => {
 };
 
 // GET /rtp
-const getRTP = (_: Request, res: Response, next: NextFunction): void => {
+const getRTP = (_: Request, res: Response): void => {
   const rtp = slotService.calculateRTP();
   res.status(200).json({ rtp });
 };

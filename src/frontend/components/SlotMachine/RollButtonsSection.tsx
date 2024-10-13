@@ -14,7 +14,7 @@ interface RollSectionProps {
   handleSimulateClick: () => void;
 }
 
-const RollSection: React.FC<RollSectionProps> = ({
+const RollButtonsSection: React.FC<RollSectionProps> = ({
   betAmount,
   handleBetChange,
   handleRollClick,
@@ -43,4 +43,4 @@ const RollSection: React.FC<RollSectionProps> = ({
   );
 };
 
-export default RollSection;
+export default RollButtonsSection;

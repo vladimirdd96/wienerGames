@@ -37,6 +37,5 @@ const SlotReelsContainer = styled.div`
   height: 200px;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
 `;

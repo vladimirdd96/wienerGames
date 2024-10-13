@@ -1,7 +1,7 @@
 import React from 'react';
 import ReelGridComponent from './ReelGrid';
 import BalanceSection from './BalanceSection/BalanceSection';
-import RollSection from './RollSection';
+import RollButtonsSection from './RollButtonsSection';
 
 interface SlotMachineProps {
   symbolsMatrix: string[][];
@@ -48,7 +48,7 @@ const SlotMachine: React.FC<SlotMachineProps> = ({
         walletError={walletError}
         betAmount={betAmount}
       />
-      <RollSection
+      <RollButtonsSection
         betAmount={betAmount}
         handleBetChange={handleBetChange}
         handleRollClick={handleRollClick}
