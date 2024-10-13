@@ -60,10 +60,6 @@ const ContainerComponent: React.FC = () => {
     rollCount,
   );
 
-  useEffect(() => {
-    fetchRTP();
-  }, [singleRolling, simulateRolling]);
-
   const handleDepositInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
