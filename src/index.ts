@@ -3,7 +3,7 @@ import { slotController } from './controllers/slotController';
 import { walletController } from './controllers/walletController';
 import { errorHandler } from './middlewares/errorHandler';
 import cors from 'cors';
-import { basePort, serverBaseUrl, urls } from './constants';
+import { basePort, serverBaseUrl, urls } from './utils/constants';
 import { logger } from './utils/logger';
 
 const app = express();

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { clientBaseUrl, urls } from '../../constants';
+import { clientBaseUrl, urls } from '../../utils/constants';
 import { errorMessages } from '../../utils/constants';
 
 interface WalletBalance {

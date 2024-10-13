@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { clientBaseUrl, urls } from '../../constants';
+import { clientBaseUrl, urls } from '../../utils/constants';
 import { PlayResponse, SimulateResponse } from '../../models/types';
 import { errorMessages } from '../../utils/constants';
 
