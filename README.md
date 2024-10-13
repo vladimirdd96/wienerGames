@@ -1,8 +1,5 @@
 ```
-yarn start  -> starts the server
-```
-```
-yarn dev  -> starts the client
+yarn start  -> starts the whole project (client + server)
 ```
 
 # Node.js Developer Task
