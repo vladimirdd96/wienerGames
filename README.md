@@ -56,6 +56,7 @@ POST /sim
 Response:
 ```
 {
+  "matrix": string[][],
   "totalWinnings": number,
   "netResult": number
 }
