@@ -82,7 +82,7 @@ export const useSlotMachine = (bet: number, count: number) => {
         setError(errorMessages.default);
       }
     }
-  }, [count]);
+  }, [count, bet]);
 
   return { matrix, winnings, totalWinningsToday, error, play, simulate };
 };

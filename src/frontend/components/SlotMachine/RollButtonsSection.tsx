@@ -4,7 +4,7 @@ import InputComponent from '../Input/InputComponent';
 import TextComponent from '../Text/Text';
 import SectionComponent from '../Section/Section';
 
-interface RollSectionProps {
+interface RollButtonsSectionProps {
   betAmount: number;
   handleBetChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleRollClick: () => void;
@@ -14,7 +14,7 @@ interface RollSectionProps {
   handleSimulateClick: () => void;
 }
 
-const RollButtonsSection: React.FC<RollSectionProps> = ({
+const RollButtonsSection: React.FC<RollButtonsSectionProps> = ({
   betAmount,
   handleBetChange,
   handleRollClick,

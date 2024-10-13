@@ -11,6 +11,7 @@ import DepositSection from './DepositSection/DepositSection';
 import SlotMachine from './SlotMachine/SlotMachine';
 import StatisticSection from './StatisticSection/StatisticSection';
 import { errorMessages } from '../../utils/constants';
+import { useRtp } from '../hooks/useRtp';
 
 interface RTPResponse {
   rtp: number;
@@ -18,8 +19,7 @@ interface RTPResponse {
 
 const ContainerComponent: React.FC = () => {
   const [amount, setAmount] = useState<number>(0);
-  const [rtp, setRTP] = useState<number>(0);
-  const [rtpError, setRtpError] = useState<string | null>(null);
+  const { rtp, rtpError, fetchRTP } = useRtp();
 
   const { betAmount, handleBetChange, rollCount, handleRollCountChange } = useBet(10);
   const {
@@ -32,25 +32,6 @@ const ContainerComponent: React.FC = () => {
   } = useSlotMachine(betAmount, rollCount);
   const { balance, fetchBalance, walletError, deposit } = useWallet();
   const symbolsMatrix = matrix && matrix.length ? matrix : initialFruitsState;
-
-  const fetchRTP = useCallback(async () => {
-    setRtpError(null);
-    try {
-      const response = await fetch(clientBaseUrl + urls.slot.rtp);
-      if (!response.ok) {
-        throw new Error(errorMessages.failedToFetchRtp);
-      }
-
-      const data: RTPResponse = await response.json();
-      setRTP(data.rtp);
-    } catch (error) {
-      if (error instanceof Error) {
-        setRtpError(error.message);
-      } else {
-        setRtpError(errorMessages.default);
-      }
-    }
-  }, []);
 
   const { singleRolling, handleRollClick, simulateRolling, handleSimulateClick } = useRolling(
     play,

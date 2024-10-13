@@ -1,14 +1,14 @@
 import React from 'react';
 import ErrorMessage from './ErrorMessage';
 
-interface ErrorMessagesProps {
+interface ErrorMessagesSectionProps {
   slotMachineError?: string | null;
   rtpError?: string | null;
   walletError?: string | null;
   balanceError?: string | null;
 }
 
-const ErrorMessagesSection: React.FC<ErrorMessagesProps> = ({
+const ErrorMessagesSection: React.FC<ErrorMessagesSectionProps> = ({
   slotMachineError,
   rtpError,
   walletError,

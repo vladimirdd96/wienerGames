@@ -1,13 +1,13 @@
 import React, { CSSProperties } from 'react';
 import styled, { css } from 'styled-components';
 
-interface PlayButtonProps {
+interface ButtonComponentProps {
   onClick: () => void;
   disabled: boolean;
   text: string;
   style?: CSSProperties;
 }
-const ButtonComponent: React.FC<PlayButtonProps> = ({ onClick, disabled, text, style: style }) => {
+const ButtonComponent: React.FC<ButtonComponentProps> = ({ onClick, disabled, text, style: style }) => {
   return (
     <Button onClick={disabled ? undefined : onClick} disabled={disabled} style={style}>
       {text}
