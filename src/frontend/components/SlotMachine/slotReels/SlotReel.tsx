@@ -17,7 +17,7 @@ const SlotReel: React.FC<SlotReelProps> = ({ symbols, rolling }) => {
       {displayedSymbols.map((row, rowIndex) => (
         <SlotRow key={rowIndex}>
           {row.map((symbol, symbolIndex) => (
-            <SlotSymbol key={symbolIndex} symbol={symbol} rolling={rolling} />
+            <SlotSymbol key={symbolIndex} symbol={symbol} />
           ))}
         </SlotRow>
       ))}
