@@ -3,6 +3,142 @@ starts the whole project (client + server) with a single command
 yarn start
 ```
 
+
+# Slot Casino Game API Documentation
+
+### Overview
+
+This API simulates a slot casino game, offering three core endpoints to play the game, simulate multiple spins, and retrieve the RTP (Return to Player) percentage. Additionally, wallet management is included to handle deposits, withdrawals, and balance checking.
+
+Base URL
+Local Development: ```http://localhost:3000```
+
+
+### Slot Machine Endpoints
+## 1.POST /play
+Description: Executes a random spin, deducts the bet from the player's wallet, and returns the result of the spin along with the winnings.
+
+Request:
+```
+POST /play
+{
+  "bet": number
+}
+```
+
+Response:
+```
+{
+  "matrix": string[][],
+  "winnings": number
+}
+```
+
+#### Functionality:
+
+1. Deducts the bet amount from the player's wallet.
+2. Randomly selects 3x3 symbols from the predefined set.
+3. Calculates winnings based on combinations of 3 identical symbols in a row (wins 5x the bet).
+4. Returns the final symbol matrix and winnings.
+
+## 2. POST /sim
+Description: Simulates multiple spins based on the provided count and bet amount, then returns the total winnings and net result.
+
+Request:
+```
+POST /sim
+{
+  "count": number,
+  "bet": number
+}
+```
+
+Response:
+```
+{
+  "totalWinnings": number,
+  "netResult": number
+}
+```
+
+#### Functionality:
+
+1. Deducts the total bet (count * bet) from the player's wallet.
+2. Simulates the number of spins provided.
+3. Returns the total winnings and the net result (total winnings - total bet).
+
+## 3. GET /rtp
+Description: Retrieves the Return to Player (RTP) percentage based on all spins made so far.
+
+Response:
+```
+{
+  "rtp": number
+}
+```
+
+Functionality:
+
+1. Calculates the RTP as (total winnings / total bets) * 100.
+2. Returns the RTP percentage based on all previous spins.
+
+### Wallet Endpoints
+## 1. POST /wallet/deposit
+Description: Adds funds to the player's wallet.
+
+Request:
+```
+POST /wallet/deposit
+{
+  "amount": number
+}
+```
+
+Response:
+```
+{
+  "balance": number
+}
+```
+
+## 2. POST /wallet/withdraw
+Description: Withdraws funds from the player's wallet if sufficient balance is available.
+
+Request:
+```
+POST /wallet/withdraw
+{
+  "amount": number
+}
+```
+
+Response:
+```
+{
+  "balance": number
+}
+```
+
+## 3. GET /wallet/balance
+Description: Returns the current balance of the player's wallet.
+
+Response:
+```
+{
+  "balance": number
+}
+```
+
+### Error Handling
+1. 400 Bad Request: Returned when the request body is invalid or missing required fields.
+2. 500 Internal Server Error: Returned for unexpected server errors.
+3. Detailed error messages are provided to assist in debugging.
+
+
+
+
+
+
 # Node.js Developer Task
 MAIN TASK:
 Objective: Create an API for simulating a slot casino game with three endpoints.
