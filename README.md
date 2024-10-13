@@ -21,6 +21,7 @@ Description: Executes a random spin, deducts the bet from the player's wallet, a
 Request:
 ```
 POST /play
+
 {
   "bet": number
 }
@@ -47,6 +48,7 @@ Description: Simulates multiple spins based on the provided count and bet amount
 Request:
 ```
 POST /sim
+
 {
   "count": number,
   "bet": number
@@ -73,6 +75,8 @@ Description: Retrieves the Return to Player (RTP) percentage based on all spins 
 
 Response:
 ```
+GET /rtp
+
 {
   "rtp": number
 }
@@ -90,6 +94,7 @@ Description: Adds funds to the player's wallet.
 Request:
 ```
 POST /wallet/deposit
+
 {
   "amount": number
 }
@@ -108,6 +113,7 @@ Description: Withdraws funds from the player's wallet if sufficient balance is a
 Request:
 ```
 POST /wallet/withdraw
+
 {
   "amount": number
 }
@@ -125,6 +131,8 @@ Description: Returns the current balance of the player's wallet.
 
 Response:
 ```
+GET /wallet/balance
+
 {
   "balance": number
 }
