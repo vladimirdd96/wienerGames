@@ -3,6 +3,7 @@ import ButtonComponent from '../Button/ButtonComponent';
 import InputComponent from '../Input/InputComponent';
 import TextComponent from '../Text/Text';
 import SectionComponent from '../Section/Section';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 interface RollButtonsSectionProps {
   betAmount: number;
@@ -23,8 +24,12 @@ const RollButtonsSection: React.FC<RollButtonsSectionProps> = ({
   handleRollCountChange,
   handleSimulateClick,
 }) => {
+  const windowWidth = useWindowWidth();
+  const isSmallScreen = windowWidth < 768;
+
   return (
-    <SectionComponent style={{ boxShadow: 'none', flexDirection: 'row', justifyContent: 'center' }}>
+    <SectionComponent
+      style={{ boxShadow: 'none', flexDirection: isSmallScreen ? 'column' : 'row', justifyContent: 'center' }}>
       <SectionComponent style={{ boxShadow: 'none', flexDirection: 'column', alignItems: 'center' }}>
         <TextComponent text='Bet Amount' />
         <InputComponent value={betAmount} onChange={handleBetChange} placeholder={'Enter your bet'} />
