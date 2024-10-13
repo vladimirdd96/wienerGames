@@ -3,7 +3,7 @@ import { slotService } from '../services/slotService';
 import { walletService } from '../services/walletService';
 import { createValidationError, createInsufficientBalanceError } from '../middlewares/errorHandler';
 import { Bet, PlayResponse, SimulateResponse, SlotMatrix } from '../models/types';
-import { errorMessages } from '../utils/constants';
+import { errorMessages, HttpStatusCode } from '../utils/constants';
 
 // POST /play
 const play = (req: Request, res: Response, next: NextFunction): void => {
@@ -26,7 +26,7 @@ const play = (req: Request, res: Response, next: NextFunction): void => {
 
   walletService.addWinnings(winnings);
   const response: PlayResponse = { matrix: resultMatrix, winnings };
-  res.status(200).json(response);
+  res.status(HttpStatusCode.OK).json(response);
 };
 
 // POST /sim
@@ -65,13 +65,13 @@ const simulate = (req: Request, res: Response, next: NextFunction): void => {
   const netResult = totalWinnings - totalBet;
   const response: SimulateResponse = { matrix: slotMatrix, totalWinnings, netResult, rtp };
 
-  res.status(200).json(response);
+  res.status(HttpStatusCode.OK).json(response);
 };
 
 // GET /rtp
 const getRTP = (_: Request, res: Response): void => {
   const rtp = slotService.calculateRTP();
-  res.status(200).json({ rtp });
+  res.status(HttpStatusCode.OK).json({ rtp });
 };
 
 export const slotController = {

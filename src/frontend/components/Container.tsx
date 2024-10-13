@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SectionComponent from './Section/Section';
 import { useWallet } from '../hooks/useWallet';
@@ -6,16 +6,10 @@ import { initialFruitsState } from '../constants';
 import { useBet } from '../hooks/useBet';
 import { useRolling } from '../hooks/useRollingState';
 import { useSlotMachine } from '../hooks/useSlotMachine';
-import { clientBaseUrl, urls } from '../../constants';
 import DepositSection from './DepositSection/DepositSection';
 import SlotMachine from './SlotMachine/SlotMachine';
 import StatisticSection from './StatisticSection/StatisticSection';
-import { errorMessages } from '../../utils/constants';
 import { useRtp } from '../hooks/useRtp';
-
-interface RTPResponse {
-  rtp: number;
-}
 
 const ContainerComponent: React.FC = () => {
   const [amount, setAmount] = useState<number>(0);

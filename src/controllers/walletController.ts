@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { walletService } from '../services/walletService';
 import { WalletTransactionRequest, WalletBalanceResponse } from '../models/types';
 import { createValidationError, createInsufficientBalanceError } from '../middlewares/errorHandler';
-import { errorMessages } from '../utils/constants';
+import { errorMessages, HttpStatusCode } from '../utils/constants';
 
 // POST /wallet/deposit
 const deposit = (req: Request, res: Response, next: NextFunction): void => {
@@ -15,7 +15,7 @@ const deposit = (req: Request, res: Response, next: NextFunction): void => {
   walletService.addWinnings(amount);
 
   const balance: WalletBalanceResponse = { balance: walletService.getBalance() };
-  res.status(200).json(balance);
+  res.status(HttpStatusCode.OK).json(balance);
 };
 
 // POST /wallet/withdraw
@@ -33,13 +33,13 @@ const withdraw = (req: Request, res: Response, next: NextFunction): void => {
   walletService.subtractBet(amount);
 
   const balance: WalletBalanceResponse = { balance: walletService.getBalance() };
-  res.status(200).json(balance);
+  res.status(HttpStatusCode.OK).json(balance);
 };
 
 // GET /wallet/balance
 const getBalance = (_: Request, res: Response): void => {
   const balance: WalletBalanceResponse = { balance: walletService.getBalance() };
-  res.status(200).json(balance);
+  res.status(HttpStatusCode.OK).json(balance);
 };
 
 export const walletController = {
