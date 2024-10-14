@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SectionComponent from './Section/Section';
 import { useWallet } from '../hooks/useWallet';
@@ -12,7 +12,6 @@ import StatisticSection from './StatisticSection/StatisticSection';
 import { useRtp } from '../hooks/useRtp';
 
 const ContainerComponent: React.FC = () => {
-  const [amount, setAmount] = useState<number>(0);
   const { rtp, rtpError, fetchRTP } = useRtp();
 
   const { betAmount, handleBetChange, rollCount, handleRollCountChange } = useBet(10);
@@ -35,29 +34,10 @@ const ContainerComponent: React.FC = () => {
     rollCount,
   );
 
-  const handleDepositInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    if (!isNaN(value)) {
-      setAmount(value);
-    }
-  };
-
-  const handleDepositSubmit = () => {
-    if (amount > 0) {
-      deposit(amount);
-      setAmount(0);
-    }
-  };
-
   return (
     <Container>
       <SectionComponent>
-        <DepositSection
-          amount={amount}
-          handleDepositInputChange={handleDepositInputChange}
-          handleDepositSubmit={handleDepositSubmit}
-          walletError={walletError}
-        />
+        <DepositSection deposit={deposit} walletError={walletError} />
       </SectionComponent>
 
       <SectionComponent>

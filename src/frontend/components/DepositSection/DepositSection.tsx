@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ButtonComponent from '../Button/ButtonComponent';
 import ErrorMessage from '../Error/ErrorMessage';
 import InputComponent from '../Input/InputComponent';
 import TextComponent from '../Text/Text';
 
 interface DepositSectionProps {
-  amount: number;
-  handleDepositInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleDepositSubmit: () => void;
   walletError: string | null;
+  deposit: (amount: number) => Promise<void>;
 }
 
-const DepositSection: React.FC<DepositSectionProps> = ({
-  amount,
-  handleDepositInputChange,
-  handleDepositSubmit,
-  walletError,
-}) => {
+const DepositSection: React.FC<DepositSectionProps> = ({ walletError, deposit }) => {
+  const [amount, setAmount] = useState<number>(0);
+
+  const handleDepositInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setAmount(value);
+    }
+  };
+
+  const handleDepositSubmit = () => {
+    if (amount > 0) {
+      deposit(amount);
+      setAmount(0);
+    }
+  };
+
   return (
     <>
       <TextComponent text={'Deposit Funds'} style={{ fontStyle: 'bold', fontSize: '1.5rem' }} />
