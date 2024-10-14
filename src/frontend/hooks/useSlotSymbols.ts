@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useSlotSymbols = (symbols: string[][], rolling: boolean) => {
   const [displayedSymbols, setDisplayedSymbols] = useState<string[][]>(symbols);
 
-  const getRandomSymbol = (symbols: string[][]) => {
+  const getRandomSymbol = useCallback((symbols: string[][]) => {
     const flatSymbols = symbols.flat();
     const randomIndex = Math.floor(Math.random() * flatSymbols.length);
     return flatSymbols[randomIndex];
-  };
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -21,7 +21,7 @@ export const useSlotSymbols = (symbols: string[][], rolling: boolean) => {
     }
 
     return () => clearInterval(interval);
-  }, [rolling, symbols]);
+  }, [rolling, symbols, getRandomSymbol]);
 
   return displayedSymbols;
 };

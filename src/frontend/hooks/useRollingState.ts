@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useRolling = (
   play: () => Promise<void>,
@@ -11,31 +11,31 @@ export const useRolling = (
   const [simulateRolling, setSimulateRolling] = useState<boolean>(false);
   const singleRollRollingTime = 700;
 
-  const handleRollClick = async () => {
+  const handleRollClick = useCallback(async () => {
     setSingleRolling(true);
     setTimeout(() => {
       setSingleRolling(false);
     }, singleRollRollingTime);
-  };
+  }, [singleRollRollingTime]);
 
-  const handleSimulateClick = async () => {
+  const handleSimulateClick = useCallback(async () => {
     setSimulateRolling(true);
     setTimeout(() => {
       setSimulateRolling(false);
     }, singleRollRollingTime * count);
-  };
+  }, [singleRollRollingTime, count]);
 
-  const handlePlay = async () => {
+  const handlePlay = useCallback(async () => {
     await play();
     await fetchBalance();
     await fetchRTP();
-  };
+  }, [play, fetchBalance, fetchRTP]);
 
-  const handleSimulate = async () => {
+  const handleSimulate = useCallback(async () => {
     await simulate();
     await fetchBalance();
     await fetchRTP();
-  };
+  }, [simulate, fetchBalance, fetchRTP]);
 
   useEffect(() => {
     if (singleRolling) {

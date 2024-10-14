@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 export const useInitialSetup = (fetchRTP: () => Promise<void>) => {
+  const handleInitialState = useCallback(async () => {
+    await fetchRTP();
+  }, [fetchRTP]);
+
   useEffect(() => {
-    const handleInitialState = async () => {
-      await fetchRTP();
-    };
     handleInitialState();
-  }, []);
+  }, [handleInitialState]);
 };
