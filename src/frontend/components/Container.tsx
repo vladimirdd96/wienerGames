@@ -12,8 +12,7 @@ import StatisticSection from './StatisticSection/StatisticSection';
 import { useRtp } from '../hooks/useRtp';
 
 const ContainerComponent: React.FC = () => {
-  const { rtp, rtpError, fetchRTP } = useRtp();
-
+  const { rtp, error: rtpError, fetchRTP } = useRtp();
   const { betAmount, handleBetChange, rollCount, handleRollCountChange } = useBet(10);
   const {
     matrix,

@@ -8,10 +8,10 @@ interface RTPResponse {
 
 export const useRtp = () => {
   const [rtp, setRTP] = useState<number>(0);
-  const [rtpError, setRtpError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchRTP = useCallback(async () => {
-    setRtpError(null);
+    setError(null);
     try {
       const response = await fetch(clientBaseUrl + urls.slot.rtp);
       if (!response.ok) {
@@ -22,18 +22,16 @@ export const useRtp = () => {
       setRTP(data.rtp);
     } catch (error) {
       if (error instanceof Error) {
-        setRtpError(error.message);
+        setError(error.message);
       } else {
-        setRtpError(errorMessages.default);
+        setError(errorMessages.default);
       }
     }
   }, []);
 
   return {
     rtp,
-    setRTP,
-    rtpError,
-    setRtpError,
+    error,
     fetchRTP,
   };
 };
