@@ -25,14 +25,17 @@ const spin = (): SlotMatrix => {
 const calculateWinnings = (matrix: SlotMatrix, bet: number): number => {
   let winnings = 0;
 
-  matrix.forEach(row => {
-    const [firstSymbol, ...rest] = row;
+  // Check each row (horizontal line)
+  for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+    // Get all symbols in this row
+    const rowSymbols = matrix.map(column => column[rowIndex]);
+    const [firstSymbol, ...rest] = rowSymbols;
     const isWinningRow = rest.every(symbol => symbol === firstSymbol);
 
     if (isWinningRow) {
       winnings += bet * 5; // 5x payout for a winning row
     }
-  });
+  }
 
   serviceState.totalWinnings += winnings;
   return winnings;
