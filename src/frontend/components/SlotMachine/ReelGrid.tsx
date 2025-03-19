@@ -5,10 +5,14 @@ import SlotReel from './slotReels/SlotReel';
 interface ReelGridProps {
   symbolsMatrix: string[][];
   rolling: boolean;
+  onSpinComplete?: () => void;
+  winningRow?: number | null;
 }
 
-const ReelGridComponent: React.FC<ReelGridProps> = ({ symbolsMatrix, rolling }) => (
-  <StyledReelGrid>{symbolsMatrix && <SlotReel symbols={symbolsMatrix} rolling={rolling} />}</StyledReelGrid>
+const ReelGridComponent: React.FC<ReelGridProps> = ({ symbolsMatrix, rolling, onSpinComplete, winningRow }) => (
+  <StyledReelGrid>
+    {symbolsMatrix && <SlotReel symbols={symbolsMatrix} rolling={rolling} onSpinComplete={onSpinComplete} winningRow={winningRow} />}
+  </StyledReelGrid>
 );
 
 export default ReelGridComponent;
