@@ -3,7 +3,7 @@ import ButtonComponent from '../Button/ButtonComponent';
 import InputComponent from '../Input/InputComponent';
 import TextComponent from '../Text/Text';
 import SectionComponent from '../Section/Section';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import { useUIStore } from '../../stores/uiStore';
 
 interface RollButtonsSectionProps {
   betAmount: number;
@@ -24,7 +24,7 @@ const RollButtonsSection: React.FC<RollButtonsSectionProps> = ({
   handleRollCountChange,
   handleSimulateClick,
 }) => {
-  const windowWidth = useWindowWidth();
+  const windowWidth = useUIStore(state => state.windowWidth);
   const isSmallScreen = windowWidth < 768;
 
   return (
