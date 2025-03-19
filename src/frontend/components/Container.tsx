@@ -1,37 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import SectionComponent from './Section/Section';
-import { useWallet } from '../hooks/useWallet';
 import { initialFruitsState } from '../constants';
-import { useBet } from '../hooks/useBet';
-import { useRolling } from '../hooks/useRollingState';
-import { useSlotMachine } from '../hooks/useSlotMachine';
 import DepositSection from './DepositSection/DepositSection';
 import SlotMachine from './SlotMachine/SlotMachine';
 import StatisticSection from './StatisticSection/StatisticSection';
-import { useRtp } from '../hooks/useRtp';
+import { useGameStore } from '../stores/gameStore';
 
 const ContainerComponent: React.FC = () => {
-  const { rtp, error: rtpError, fetchRTP } = useRtp();
-  const { betAmount, handleBetChange, rollCount, handleRollCountChange } = useBet(10);
   const {
     matrix,
+    rolling,
     winnings,
     totalWinningsToday,
-    error: slotMachineError,
+    betAmount,
+    rollCount,
+    balance,
+    rtp,
+    slotMachineError,
+    rtpError,
+    walletError,
+    setBetAmount,
+    setRollCount,
+    setRolling,
     play,
     simulate,
-  } = useSlotMachine(betAmount, rollCount);
-  const { balance, fetchBalance, walletError, deposit } = useWallet();
-  const symbolsMatrix = matrix && matrix.length ? matrix : initialFruitsState;
-
-  const { singleRolling, handleRollClick, simulateRolling, handleSimulateClick } = useRolling(
-    play,
+    deposit,
     fetchBalance,
     fetchRTP,
-    simulate,
-    rollCount,
-  );
+  } = useGameStore();
+
+  // Initial data fetch
+  useEffect(() => {
+    fetchBalance();
+    fetchRTP();
+  }, [fetchBalance, fetchRTP]);
+
+  const symbolsMatrix = matrix && matrix.length ? matrix : initialFruitsState;
+
+  const handleBetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value) || 0;
+    setBetAmount(value);
+  };
+
+  const handleRollCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value) || 0;
+    setRollCount(value);
+  };
+
+  const handleRollClick = async () => {
+    setRolling(true);
+    await play();
+    await Promise.all([fetchBalance(), fetchRTP()]);
+    setRolling(false);
+  };
+
+  const handleSimulateClick = async () => {
+    setRolling(true);
+    await simulate();
+    await Promise.all([fetchBalance(), fetchRTP()]);
+    setRolling(false);
+  };
 
   return (
     <Container>
@@ -42,7 +71,7 @@ const ContainerComponent: React.FC = () => {
       <SectionComponent>
         <SlotMachine
           symbolsMatrix={symbolsMatrix}
-          rolling={singleRolling || simulateRolling}
+          rolling={rolling}
           winnings={winnings}
           totalWiningsToday={totalWinningsToday}
           slotMachineError={slotMachineError}
@@ -65,15 +94,13 @@ const ContainerComponent: React.FC = () => {
   );
 };
 
-export default ContainerComponent;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  background-color: #f1f1f1;
-  min-height: 100vh;
-  font-family: 'Arial', sans-serif;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 `;
+
+export default ContainerComponent;
